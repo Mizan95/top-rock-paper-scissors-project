@@ -1,18 +1,19 @@
-let computerSelection = ["rock", "paper", "scissors"]
-
 function selectRandomItem(array) {
+    array = ["rock", "paper", "scissors"];
     const randomIndex = Math.floor(Math.random() * array.length);
-
     const item = array[randomIndex];
-
-    return item;
+    console.log(item) ;
 }
 
-let computerInput = selectRandomItem(computerSelection);
+selectRandomItem();
 
+let playerInput = prompt("Please enter your choice")
 
 
 function playerInputValidation(input) {
+    
+    
+    
     let inputCase = input.toLowerCase();
     switch (inputCase) {
         case "rock":
@@ -21,19 +22,25 @@ function playerInputValidation(input) {
                 return inputCase;
         default:
                 console.log("Please enter a valid option");
-
+                break;
     }                       
 }
 
-let playerInput = prompt("Please enter your choice");
+// let computerInput = selectRandomItem(computerSelection);
+ 
 
-function round(playerInput, computerInput) {
-    computerInput == playerInput ? 
-    console.log("Draw") : 
-    computerInput == "rock" && playerInput == "paper" || computerInput == "paper" && playerInput == "scissors" 
-    || computerInput == "scissors" && playerInput == "rock" ? console.log("You win") :
-    console.log("You lose");
-    }
+// simulateRound(computerInput, playerInput);
+
+
+// function simulateRound(playerInput, computerInput) {
+//     computerInput == playerInput ? 
+//     console.log("Draw") : 
+//     computerInput == "rock" && playerInput == "paper" || 
+//     computerInput == "paper" && playerInput == "scissors" || 
+//     computerInput == "scissors" && playerInput == "rock" ? 
+//     console.log("You win") :
+//     console.log("You lose");
+//     }
 
 
 // round(playerInputValidation(playerInput), computerInput);
@@ -43,10 +50,9 @@ function round(playerInput, computerInput) {
 // else if computer has won more rounds, declare computer winner
 // else if both have same score, then declare draw
 
-for (let i = 0; i <= 5; i++) {
-    if (i < 5) {
-        round(computerInput);
-    }
-    
-    // break;
-}
+// for (let i = 0; i <= 5; i++) {
+//     if (i < 5) {
+        
+//     }
+
+// }
