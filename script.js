@@ -26,30 +26,47 @@ function validatePlayerInput(input) {
 
 function simulateRound(computerInput, playerInput) {
     if (computerInput == playerInput) {
-        console.log("Draw");
+        alert("The round is a draw!") 
+        return 0; 
     } else if (computerInput == "rock" && playerInput == "paper"
                || computerInput == "paper" && playerInput == "scissors"
                || computerInput == "scissors" && playerInput == "rock") 
                 {
-                console.log("You win");
+                alert("Player wins round!") 
+                return 1; 
         } else {
-            console.log("You lose");
+            alert("Computer wins round!") 
+            return -1; 
         }
 }
 
+// simulates a 5 round game and announces a winner at the end
 
+function game() {
+    let playerScore = 0;
+    let compScore = 0;
+    
+    for (let i = 0; i <= 5; i++) {
+        if (i < 5) {
+        let result = simulateRound(selectRandomItem(), validatePlayerInput());
+            if (result == 1) {
+                playerScore++;
+            } else if (result == -1) {
+                compScore++;
+            } else {
+                playerScore + 0;
+                compScore + 0;
+            } 
+        }
+    }
 
+    if (playerScore > compScore) {
+        console.log("After all 5 rounds, the winner is YOU!");
+    } else if (playerScore < compScore) {
+        console.log("After all 5 rounds, the winner is The Computer! (Haha, computers rule)");
+    } else {
+        console.log("After all 5 rounds, the result is a draw!");
+    }
+}
 
-// round(playerInputValidation(playerInput), computerInput);
- 
-// loop through round function until 5 rounds have passed.
-//  when 5 rounds have passed, if player has won more rounds, declare player winner 
-// else if computer has won more rounds, declare computer winner
-// else if both have same score, then declare draw
-
-// for (let i = 0; i <= 5; i++) {
-//     if (i < 5) {
-        
-//     }
-
-// }
+game();
