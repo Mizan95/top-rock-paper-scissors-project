@@ -42,7 +42,7 @@ function simulateRound(computerInput, playerInput) {
 
 // simulates a 5 round game and announces a winner at the end
 
-function game() {
+function simulateGame() {
     let playerScore = 0;
     let compScore = 0;
     
