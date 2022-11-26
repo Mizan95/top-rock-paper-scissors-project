@@ -1,0 +1,77 @@
+#content-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.main-title-container {
+    display: flex;
+    justify-content: center;
+}
+
+.main-title {
+    width: 300px;
+    height: 100px;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.item-button-container {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+div.item-button-container > div {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: blueviolet;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.score-result-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+#score-box {
+    width: 50px;
+    height: 100px;
+    margin-right: -150px;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#result-box {
+    width: 250px;
+    height: 100px;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#final-winner-box-container {
+    display: flex;
+    justify-content: center;
+}
+
+#final-winner-box {
+    width: 300px;
+    height: 100px;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

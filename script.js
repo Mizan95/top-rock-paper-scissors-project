@@ -16,7 +16,6 @@ function validatePlayerInput(input) {
         case "paper":
         case "scissors":
             return input;
-            break;
         default:
             throw "Please enter a valid option";
     }
@@ -32,10 +31,10 @@ function simulateRound(computerInput, playerInput) {
                || computerInput == "paper" && playerInput == "scissors"
                || computerInput == "scissors" && playerInput == "rock") 
                 {
-                alert("Player wins round!") 
+                console.log("Player wins round!") 
                 return 1; 
         } else {
-            alert("Computer wins round!") 
+            console.log("Computer wins round!") 
             return -1; 
         }
 }
@@ -69,4 +68,4 @@ function simulateGame() {
     }
 }
 
-game();
+simulateGame();
