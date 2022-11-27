@@ -1,5 +1,3 @@
-// computer makes a random selection
-
 function selectRandomItem(array) {
     array = ["rock", "paper", "scissors"];
     const randomIndex = Math.floor(Math.random() * array.length);
@@ -7,65 +5,73 @@ function selectRandomItem(array) {
     return item ;
 }
 
-// takes and validates player's input
+function selectPlayerChoice(e) {
+    let playerSelection;  
 
-function validatePlayerInput(input) {
-    input = prompt("Please enter an option").toLowerCase();
-    switch (input) {
-        case "rock":
-        case "paper":
-        case "scissors":
-            return input;
-        default:
-            throw "Please enter a valid option";
-    }
+    switch (e.target) {
+        case buttonList[0]:
+            playerSelection = "rock";
+            break;
+        case buttonList[1]:
+            playerSelection = "paper";
+            break;
+        case buttonList[2]:
+            playerSelection = "scissors";
+            break;
+        }
+        return playerSelection;
 }
-
-// simulates a single round of game
 
 function simulateRound(computerInput, playerInput) {
+    const resultBox = document.querySelector("#result-box");
+    resultBox.textContent = "";
+
     if (computerInput == playerInput) {
-        alert("The round is a draw!") 
-        return 0; 
-    } else if (computerInput == "rock" && playerInput == "paper"
-               || computerInput == "paper" && playerInput == "scissors"
-               || computerInput == "scissors" && playerInput == "rock") 
-                {
-                console.log("Player wins round!") 
-                return 1; 
-        } else {
-            console.log("Computer wins round!") 
-            return -1; 
-        }
-}
-
-// simulates a 5 round game and announces a winner at the end
-
-function simulateGame() {
-    let playerScore = 0;
-    let compScore = 0;
-    
-    for (let i = 0; i <= 5; i++) {
-        if (i < 5) {
-        let result = simulateRound(selectRandomItem(), validatePlayerInput());
-            if (result == 1) {
-                playerScore++;
-            } else if (result == -1) {
-                compScore++;
-            } else {
-                playerScore + 0;
-                compScore + 0;
-            } 
-        }
+        resultBox.textContent = "The round is a draw";
+        return 0;
+    } else if (computerInput == "rock" && playerInput == "paper" ||
+            computerInput == "paper" && playerInput == "scissors" ||
+            computerInput == "scissors" && playerInput == "rock") 
+            { resultBox.textContent = "Player wins round!";
+            return 1;
+        } else { 
+            resultBox.textContent = "Computer wins round!";
+            return -1;
+        } 
+        
     }
 
-    if (playerScore > compScore) {
-        console.log("After all 5 rounds, the winner is YOU!");
-    } else if (playerScore < compScore) {
-        console.log("After all 5 rounds, the winner is The Computer! (Haha, computers rule)");
-    } else {
-        console.log("After all 5 rounds, the result is a draw!");
-    }
-}
 
-simulateGame();
+function outputRoundScore(input) {
+    if (input === 1) {
+        playerScore++
+    } else playerScore + 0;
+}
+let playerScore = 0;
+
+let buttonList = document.querySelectorAll("div.item-button-container > *");
+
+buttonList = [...buttonList];
+
+const scoreBox = document.querySelector("#score-box");
+
+buttonList.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        let roundResult = simulateRound(selectRandomItem(), selectPlayerChoice(e));
+        outputRoundScore(roundResult);
+        scoreBox.textContent = playerScore;
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
