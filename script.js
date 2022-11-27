@@ -38,16 +38,18 @@ function simulateRound(computerInput, playerInput) {
             resultBox.textContent = "Computer wins round!";
             return -1;
         } 
-        
-    }
+}
 
 
 function outputRoundScore(input) {
-    if (input === 1) {
-        playerScore++
-    } else playerScore + 0;
+    if (input === 1) playerScore++;
+    else if (input === -1) computerScore++;
+    else return;
 }
+
 let playerScore = 0;
+
+let computerScore = 0;
 
 let buttonList = document.querySelectorAll("div.item-button-container > *");
 
@@ -55,11 +57,14 @@ buttonList = [...buttonList];
 
 const scoreBox = document.querySelector("#score-box");
 
+const computerScoreBox = document.querySelector("#computer-score-box");
+
 buttonList.forEach((button) => {
     button.addEventListener('click', (e) => {
         let roundResult = simulateRound(selectRandomItem(), selectPlayerChoice(e));
         outputRoundScore(roundResult);
         scoreBox.textContent = playerScore;
+        computerScoreBox.textContent = computerScore;
     })
 })
 
