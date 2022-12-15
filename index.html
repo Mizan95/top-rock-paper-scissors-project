@@ -5,29 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
     <link rel="stylesheet" href="style.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Didact Gothic' rel='stylesheet'>
+
+
+    
     <script src="script.js" defer></script>
+    
+    <script src="https://kit.fontawesome.com/fcdf602b50.js" crossorigin="anonymous"></script>
+
     
 </head>
 <body>
-    <div id="content-container">
         <div class="main-title-container">
             <div class="main-title">Rock Paper Scissors</div>
         </div>
+
         <div class="item-button-container">
-            <div id="rock-button">Rock</div>
-            <div id="paper-button">Paper</div>
-            <div id="scissors-button">Scissors</div>
+            
+            <i id="rock" class="fa-regular fa-hand-back-fist fa-5x"></i>
+            
+            
+            <i id="paper" class="fa-regular fa-hand fa-5x"></i>
+            
+            
+            <i id="scissors" class="fa-regular fa-hand-scissors fa-5x"></i>
+            
+        </div>
+        <div id="selection-container">
+            <div id="player-item">
+                
+            </div>
+            <div id="computer-item">
+                
+            </div>
         </div>
         <div class="score-result-container">
-            <div id="score-box"></div>
-            <div id="result-box"></div>
+            <div id="player-score-box"></div>
+            <div id="round-result-box"></div>
             <div id="computer-score-box"></div>
         </div>
         <div id="final-winner-box-container">
-            <div id="final-winner-box">The winner is you/computer!</div>
+            <div id="final-winner-box"></div>
         </div>
-    </div>
+
 </body>
     <!-- <script>
         

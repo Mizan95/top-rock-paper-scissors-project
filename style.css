@@ -1,87 +1,130 @@
-#content-container {
+body {
     height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
+    margin: 0 -10px;
+}
+
+body > * {
+    flex: auto;
 }
 
 .main-title-container {
     display: flex;
     justify-content: center;
+    padding: 20px;
+    background-color: #2b83e2;
 }
 
+
+
 .main-title {
-    width: 300px;
-    height: 100px;
-    background-color: aqua;
+    /* width: 300px; */
+    /* height: 100px; */
+    color: white;
+    font-weight: 700;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 40px;
+    font-family: 'Abel', 'Arial', 'Verdana';
 }
 
 .item-button-container {
     display: flex;
     justify-content: space-evenly;
-
+    background-color: blanchedalmond;
+    align-items: center;
 }
 
-div.item-button-container > div {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    background-color: blueviolet;
-    color: aliceblue;
+
+
+.item-button-container > i {
+    color: #1051d1;
+}
+
+.item-button-container > i:hover {
+    color: gold;
+}
+
+.on-click {
+    background-color: cornflowerblue;
+}
+
+#selection-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    background-color: #2b83e2;
+}
+
+#selection-container i {
+    width: 20px;
+    height: 20px;
+    background-color: pink;
+    display: block;
 }
 
 .score-result-container {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    background-color: blanchedalmond;
 }
 
-#score-box {
+#player-score-box {
     width: 70px;
     height: 100px;
-    background-color: aqua;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Didact Gothic', 'Arial';
+    font-weight: 650;
 }
 
 #computer-score-box {
     width: 70px;
     height: 100px;
-    background-color: aqua;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Didact Gothic', 'Arial';
+    font-weight: 650;
 }
 
-#result-box {
+#round-result-box {
     width: 250px;
     height: 100px;
-    background-color: aqua;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: -50px;
     margin-left: -50px;
+    text-align: center;
+    font-family: 'Alegreya Sans SC';
+    font-size: 22px;
 }
 
 #final-winner-box-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    background-color: #2b83e2;
+    text-align: center;
+    /* font-family: 'Alegreya Sans SC'; */
+    /* font-size: 20px; */
 }
 
 #final-winner-box {
     width: 300px;
     height: 100px;
-    background-color: aqua;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
+    font-weight: 700;
+    font-family: 'Alegreya Sans SC';
+    font-size: 20px;
 }
