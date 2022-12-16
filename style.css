@@ -72,6 +72,11 @@ body > * {
     justify-content: center;
     align-items: center;
     background-color: blanchedalmond;
+    flex-basis: 110px;
+}
+
+.score-box-wrapper {
+    margin-bottom: 2em;
 }
 
 #player-score-box {
