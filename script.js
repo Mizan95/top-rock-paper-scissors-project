@@ -11,6 +11,8 @@ const scissorsButton = document.querySelector("#scissors");
 const playerScoreBox = document.querySelector("#player-score-box");
 const computerScoreBox = document.querySelector("#computer-score-box");
 
+const finalWinnerBoxContainer = document.querySelector("#final-winner-box-container")
+const finalWinnerBox = document.querySelector("#final-winner-box");
 
 // Resets scores to 0 
 // and displays 0 in player and comp score boxes
@@ -24,7 +26,7 @@ function resetScores() {
 }
 
 
-// When a user clicks on a rock, paper, scissors button
+// When a user clicks on a rock, paper, scissors button, game is started
 function startApplication() {
 
     rockButton.addEventListener('click', (e) => {
@@ -42,17 +44,16 @@ function startApplication() {
 resetScores()
 startApplication()
 
-// takes event from click in startApplication 
-// and stores id of element of event as ROCK, PAPER or SCISSORS in userSelection
-// stores output of computerSelection in computerSelection
+// takes userclick and stores as ROCK, PAPER or SCISSORS
+// stores output of computerSelection
 // updates scores from output of getWinner from input of userSelection and computerSelection
 function simulateGame(e) {  
-    let userSelection = e.target.id.toUpperCase();
-    let computerSelection = generateComputerSelection();
-
     if (winningScoreReached()) {
     return;
     }
+    
+    let userSelection = e.target.id.toUpperCase();
+    let computerSelection = generateComputerSelection();
     
     let winner = getWinner(userSelection, computerSelection)
     
@@ -75,6 +76,7 @@ function generateComputerSelection() {
 
 // Compares user input with output of generateComputerSelection 
 // and returns winner
+// and displays result in roundResultBox
 function getWinner(playerSelection, computerSelection) {
     const roundResultBox = document.querySelector("#round-result-box");
 
@@ -119,11 +121,23 @@ function updateScore(roundWinner) {
 
 }
 
-// helper function - checks if game is over 
+
+
+// checks if game is over, outputs final winner
 function receiveGameOver() {
     if (winningScoreReached()) {
         outputFinalWinner();
+        setTimeout(displayPlayAgainMessage, 2000)
+        // displayPlayAgainMessage();
     } 
+}
+
+const f5Div = document.querySelector(".f5Div");
+
+
+function displayPlayAgainMessage() {
+    // f5Div.textContent = "Why not press F5 to play again?";
+    f5Div.classList.toggle("press-f5-box")
 }
 
 
@@ -141,9 +155,7 @@ function winningScoreReached() {
 
 
 
-function outputFinalWinner() {
-    const finalWinnerBox = document.querySelector("#final-winner-box");
-    
+function outputFinalWinner() {    
 
     if (playerScore > compScore) {
         finalWinnerBox.textContent = "You are the final winner!";
