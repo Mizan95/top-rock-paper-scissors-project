@@ -1,61 +1,66 @@
-let playerScore = 0;
-let compScore = 0;
-let gameOver = false;
 
 
-// rockButton.addEventListener('click', (e) => {simulateGame(e); console.log("It has worked")});
-// paperButton.addEventListener('click', (e) => {simulateGame(e); console.log("Paper has worked")});
 
+let playerScore;
+let compScore;
+
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
+
+const playerScoreBox = document.querySelector("#player-score-box");
+const computerScoreBox = document.querySelector("#computer-score-box");
+
+
+// Resets scores to 0 
+// and displays 0 in player and comp score boxes
+function resetScores() {
+    playerScore = 0;
+    compScore = 0;
+    
+    
+    playerScoreBox.textContent = playerScore;
+    computerScoreBox.textContent = compScore;
+}
+
+
+// When a user clicks on a rock, paper, scissors button
 function startApplication() {
-    const rockButton = document.querySelector("#rock");
-    const paperButton = document.querySelector("#paper");
-    const scissorsButton = document.querySelector("#scissors");
-
 
     rockButton.addEventListener('click', (e) => {
         simulateGame(e);
-        addOnclickClass(rockButton);
     });
     paperButton.addEventListener('click',  (e) => {
         simulateGame(e);
-        addOnclickClass(paperButton);
     });
     scissorsButton.addEventListener('click',  (e) => {
         simulateGame(e);
-        addOnclickClass(scissorsButton);
     });
     
 }
 
-function addOnclickClass(button) {
-    button.classList.toggle('on-click')
-}
+resetScores()
+startApplication()
 
-function toggleRockAnimation(button) {
-    button.classList
-}
-
-startApplication();
-
-// core game
+// takes event from click in startApplication 
+// and stores id of element of event as ROCK, PAPER or SCISSORS in userSelection
+// stores output of computerSelection in computerSelection
+// updates scores from output of getWinner from input of userSelection and computerSelection
 function simulateGame(e) {  
-     if (isGameOver()) {
-       outputFinalWinner();
-         return;
-     }
-
-    
     let userSelection = e.target.id.toUpperCase();
     let computerSelection = generateComputerSelection();
 
-    updateScore(getWinner(userSelection, computerSelection));
-
-    if (isGameOver()) {
-        outputFinalWinner();
-        return;
-    } 
+    if (winningScoreReached()) {
+    return;
+    }
+    
+    let winner = getWinner(userSelection, computerSelection)
+    
+    updateScore(winner);
 }
 
+
+// generates computer selection of ROCK, PAPER, SCISSORS
 function generateComputerSelection() {
     let randomNumber = Math.floor(Math.random() * 3);
     switch (randomNumber) {
@@ -68,7 +73,8 @@ function generateComputerSelection() {
     }
 }
 
-
+// Compares user input with output of generateComputerSelection 
+// and returns winner
 function getWinner(playerSelection, computerSelection) {
     const roundResultBox = document.querySelector("#round-result-box");
 
@@ -93,29 +99,46 @@ function getWinner(playerSelection, computerSelection) {
 }
 
 
+// From output of getWinner, updates player and comp scores
+// Outputs final winner if player score or comp score reaches 5
 function updateScore(roundWinner) {
     if (roundWinner === "PLAYER") {
-        playerScore++;
+        playerScore += 1;
     }
     else if (roundWinner === "COMPUTER") {
-        compScore++;
+        compScore += 1;
     }
     else if (roundWinner === "TIE") {
-        playerScore + 0;
-        compScore + 0;
+        playerScore += 0;
+        compScore += 0;
     }
-    
-    const playerScoreBox = document.querySelector("#player-score-box");
-    const computerScoreBox = document.querySelector("#computer-score-box");
 
+    displayScores();
+
+    receiveGameOver();
+
+}
+
+// helper function - checks if game is over 
+function receiveGameOver() {
+    if (winningScoreReached()) {
+        outputFinalWinner();
+    } 
+}
+
+
+// Displays scores in player and comp score boxes
+function displayScores() {
     playerScoreBox.textContent = playerScore;
     computerScoreBox.textContent = compScore;
 }
 
 
-function isGameOver() {
+// Returns if player score or comp score reaches 5
+function winningScoreReached() {
     return playerScore === 5 || compScore === 5;
 }
+
 
 
 function outputFinalWinner() {
@@ -130,52 +153,26 @@ function outputFinalWinner() {
     return;
 }
 
-function displayPlayAgainMessage() {
-    const finalWinnerBoxContainer = document.querySelector("#final-winner-box-container")
-    const playAgainMessage = document.createElement("div");
+// const displayPlayAgainMessage = () => {
+//     const finalWinnerBoxContainer = document.querySelector("#final-winner-box-container")
+//     const playAgainMessage = document.createElement("div");
 
-    finalWinnerBoxContainer.appendChild(playAgainMessage);
     
-    playAgainMessage.textContent = "Why not press F5 to play again?";
+//     finalWinnerBoxContainer.appendChild(playAgainMessage);
     
-    return;
-}
-
-// UI 
-
-// function displayItems(playerChoice, computerChoice) {
-//     const playerItem = document.querySelector("#player-item");
-//     const computerItem = document.querySelector("#computer-item");
+//     playAgainMessage.textContent = "Why not press F5 to play again?";
     
-//     playerItem.textContent = playerChoice;
-//     computerItem.textContent = computerChoice;
+//     return;
 // }
 
+// const playerItemBox = document.querySelector("#player-item");
+// const comItemBox = document.querySelector("#computer-item")
 
-// PROBLEM 1
-// When user hovers mouse over rock icon,
-// it should turn yellow
+// function appendI(playerBox, compBox) {
+//     let icon = document.createElement("i");
+//     let iconTwo = document.createElement("i");
+//     compBox.appendChild(icon);
+//     playerBox.appendChild(iconTwo);
+// }
 
-// Problem 2
-// when user clicks rock icon, 
-// it should turn blue
-
-// Problem 3
-// When user clicks on rock icon, 
-// the same rock icon should appear in playerItemBox
-
-// Problem 4
-// When rock icon appears in playerItemBox,
-// the glow should disappear
-
-const playerItemBox = document.querySelector("#player-item");
-const comItemBox = document.querySelector("#computer-item")
-
-function appendI(playerBox, compBox) {
-    let icon = document.createElement("i");
-    let iconTwo = document.createElement("i");
-    compBox.appendChild(icon);
-    playerBox.appendChild(iconTwo);
-}
-
-appendI(playerItemBox, comItemBox);
+// appendI(playerItemBox, comItemBox);
