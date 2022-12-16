@@ -69,7 +69,7 @@ body > * {
 
 .score-result-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     background-color: blanchedalmond;
 }
@@ -92,6 +92,13 @@ body > * {
     align-items: center;
     font-family: 'Didact Gothic', 'Arial';
     font-weight: 650;
+    margin-left: 1em;
+}
+
+.score-box-heading {
+    color: #0e47b6;
+    font-weight: 700;
+    font-family: 'Abel', 'Arial', 'Verdana';
 }
 
 #round-result-box {
@@ -100,8 +107,8 @@ body > * {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: -50px;
-    margin-left: -50px;
+    /* margin-right: -50px; */
+    /* margin-left: -50px; */
     text-align: center;
     font-family: 'Alegreya Sans SC';
     font-size: 22px;

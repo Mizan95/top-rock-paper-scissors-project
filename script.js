@@ -19,8 +19,7 @@ const finalWinnerBox = document.querySelector("#final-winner-box");
 function resetScores() {
     playerScore = 0;
     compScore = 0;
-    
-    
+
     playerScoreBox.textContent = playerScore;
     computerScoreBox.textContent = compScore;
 }
@@ -126,9 +125,8 @@ function updateScore(roundWinner) {
 // checks if game is over, outputs final winner
 function receiveGameOver() {
     if (winningScoreReached()) {
-        outputFinalWinner();
-        setTimeout(displayPlayAgainMessage, 2000)
-        // displayPlayAgainMessage();
+        setTimeout(outputFinalWinner, 1000)
+        setTimeout(displayPlayAgainMessage, 3000)
     } 
 }
 
@@ -136,7 +134,6 @@ const f5Div = document.querySelector(".f5Div");
 
 
 function displayPlayAgainMessage() {
-    // f5Div.textContent = "Why not press F5 to play again?";
     f5Div.classList.toggle("press-f5-box")
 }
 
@@ -156,7 +153,6 @@ function winningScoreReached() {
 
 
 function outputFinalWinner() {    
-
     if (playerScore > compScore) {
         finalWinnerBox.textContent = "You are the final winner!";
     } else {
@@ -164,27 +160,3 @@ function outputFinalWinner() {
     }   
     return;
 }
-
-// const displayPlayAgainMessage = () => {
-//     const finalWinnerBoxContainer = document.querySelector("#final-winner-box-container")
-//     const playAgainMessage = document.createElement("div");
-
-    
-//     finalWinnerBoxContainer.appendChild(playAgainMessage);
-    
-//     playAgainMessage.textContent = "Why not press F5 to play again?";
-    
-//     return;
-// }
-
-// const playerItemBox = document.querySelector("#player-item");
-// const comItemBox = document.querySelector("#computer-item")
-
-// function appendI(playerBox, compBox) {
-//     let icon = document.createElement("i");
-//     let iconTwo = document.createElement("i");
-//     compBox.appendChild(icon);
-//     playerBox.appendChild(iconTwo);
-// }
-
-// appendI(playerItemBox, comItemBox);
