@@ -1,4 +1,5 @@
-
+ // 17.12.22 - problem: when player icon "wins" comp icon, 
+// it should glow gold
 
 
 let playerScore;
@@ -27,18 +28,31 @@ function resetScores() {
 
 // When a user clicks on a rock, paper, scissors button, game is started
 function startApplication() {
-
     rockButton.addEventListener('click', (e) => {
         simulateGame(e);
+        showPlayerItem(e);
+
     });
     paperButton.addEventListener('click',  (e) => {
         simulateGame(e);
+        showPlayerItem(e);
     });
     scissorsButton.addEventListener('click',  (e) => {
         simulateGame(e);
+        showPlayerItem(e);
+        
     });
-    
 }
+
+function showPlayerItem(event) {
+    const playerItem = document.querySelector("#player-item");
+    let array = event.target.classList;
+    playerItem.classList.add(...array);
+}
+
+
+
+
 
 resetScores()
 startApplication()
@@ -46,18 +60,24 @@ startApplication()
 // takes userclick and stores as ROCK, PAPER or SCISSORS
 // stores output of computerSelection
 // updates scores from output of getWinner from input of userSelection and computerSelection
-function simulateGame(e) {  
+function simulateGame(event) {  
     if (winningScoreReached()) {
     return;
     }
     
-    let userSelection = e.target.id.toUpperCase();
+    let userSelection = event.target.id.toUpperCase();
     let computerSelection = generateComputerSelection();
+    const computerItem = document.querySelector("#computer-item");
+    
+    showComputerItem(computerSelection, computerItem);
     
     let winner = getWinner(userSelection, computerSelection)
     
     updateScore(winner);
+
+    displayWinner(winner);
 }
+
 
 
 // generates computer selection of ROCK, PAPER, SCISSORS
@@ -73,30 +93,59 @@ function generateComputerSelection() {
     }
 }
 
+
+// Shows computer item when computer choice is generated
+function showComputerItem(choice, displayedItem) {
+    switch (choice) {
+    case "ROCK":
+        displayedItem.classList.add("fa-regular", "fa-hand-back-fist", "fa-5x")
+        break;
+    case "PAPER":
+        displayedItem.classList.add("fa-regular", "fa-hand", "fa-5x")
+        break;
+    case "SCISSORS":
+        displayedItem.classList.add("fa-regular", "fa-hand-scissors", "fa-5x")
+        break;          
+    }
+}
+
+
 // Compares user input with output of generateComputerSelection 
 // and returns winner
-// and displays result in roundResultBox
 function getWinner(playerSelection, computerSelection) {
-    const roundResultBox = document.querySelector("#round-result-box");
-
     if (playerSelection === computerSelection){ 
-    roundResultBox.textContent = "The result is a tie";
     return "TIE";
     } else if (
         playerSelection === "ROCK" && computerSelection === "SCISSORS" ||
         playerSelection === "PAPER" && computerSelection === "ROCK" ||
         playerSelection === "SCISSORS" && computerSelection === "PAPER"
         ) {
-        roundResultBox.textContent = "You win the round!";
+        
         return "PLAYER"; 
     } else if (
         playerSelection === "ROCK" && computerSelection === "PAPER" ||
         playerSelection === "PAPER" && computerSelection === "SCISSORS" ||
         playerSelection === "SCISSORS" && computerSelection === "ROCK"
         ) { 
-        roundResultBox.textContent = "The computer wins the round!";
+       
         return "COMPUTER";
         }      
+}
+
+// displays winner in round result box after each round
+function displayWinner(winner) {
+    const roundResultBox = document.querySelector("#round-result-box");
+    switch (winner){
+        case "TIE":
+                roundResultBox.textContent = "The result is a tie";
+                break;
+        case "PLAYER":
+                roundResultBox.textContent = "You win the round!";
+                break;
+        case "COMPUTER":
+                roundResultBox.textContent = "The computer wins the round!";
+                break;
+        }
 }
 
 
@@ -122,7 +171,6 @@ function updateScore(roundWinner) {
 
 
 
-// checks if game is over, outputs final winner
 function receiveGameOver() {
     if (winningScoreReached()) {
         setTimeout(outputFinalWinner, 1000)
@@ -130,10 +178,11 @@ function receiveGameOver() {
     } 
 }
 
-const f5Div = document.querySelector(".f5Div");
+
 
 
 function displayPlayAgainMessage() {
+    const f5Div = document.querySelector(".f5Div");
     f5Div.classList.toggle("press-f5-box")
 }
 
@@ -145,7 +194,7 @@ function displayScores() {
 }
 
 
-// Returns if player score or comp score reaches 5
+// Returns when player score or comp score reaches 5
 function winningScoreReached() {
     return playerScore === 5 || compScore === 5;
 }
