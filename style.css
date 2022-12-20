@@ -53,18 +53,24 @@ body > * {
     background-color: cornflowerblue;
 }
 
+
 #selection-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
     background-color: #2b83e2;
+    flex-basis: 4em;
 }
 
 #selection-container > i {
     /* width: 20px; */
     /* height: 20px; */
-/*     background-color: pink; */
+    /* background-color: pink; */
     /* display: block; */
+}
+
+.winner {
+    color: gold;
 }
 
 .score-result-container {

@@ -15,6 +15,9 @@ const computerScoreBox = document.querySelector("#computer-score-box");
 const finalWinnerBoxContainer = document.querySelector("#final-winner-box-container")
 const finalWinnerBox = document.querySelector("#final-winner-box");
 
+
+
+
 // Resets scores to 0 
 // and displays 0 in player and comp score boxes
 function resetScores() {
@@ -30,53 +33,105 @@ function resetScores() {
 function startApplication() {
     rockButton.addEventListener('click', (e) => {
         simulateGame(e);
-        showPlayerItem(e);
-
-    });
+        
+        });
     paperButton.addEventListener('click',  (e) => {
         simulateGame(e);
-        showPlayerItem(e);
+
     });
     scissorsButton.addEventListener('click',  (e) => {
         simulateGame(e);
-        showPlayerItem(e);
         
     });
 }
 
-function showPlayerItem(event) {
-    const playerItem = document.querySelector("#player-item");
-    let array = event.target.classList;
-    playerItem.classList.add(...array);
-}
 
-
-
-
-
+// Turns scores into zero when game is started
 resetScores()
+
+
+// Enables game to start when rock, paper, scissor icons are clicked
 startApplication()
+
+    const playerItem = document.querySelector("#player-item");
+    const computerItem = document.querySelector("#computer-item");
 
 // takes userclick and stores as ROCK, PAPER or SCISSORS
 // stores output of computerSelection
 // updates scores from output of getWinner from input of userSelection and computerSelection
-function simulateGame(event) {  
+function simulateGame(event) {    
+    let userSelection = event.target.id.toUpperCase();
+    let computerSelection = generateComputerSelection();
+
     if (winningScoreReached()) {
     return;
     }
     
-    let userSelection = event.target.id.toUpperCase();
-    let computerSelection = generateComputerSelection();
-    const computerItem = document.querySelector("#computer-item");
-    
     showComputerItem(computerSelection, computerItem);
+
+    showPlayerItem(event);
     
-    let winner = getWinner(userSelection, computerSelection)
+    let winner = getWinner(userSelection, computerSelection);
     
     updateScore(winner);
 
     displayWinner(winner);
+
+    switch (winner) {
+        case "PLAYER":
+            glowItemGold(playerItem);
+            break;
+        case "COMPUTER":
+            glowItemGold(computerItem);
+            break;
+        default:
+            glowItemsGrey(playerItem, computerItem);
+            break;
+    }
+
+    setTimeout(removeAllClasses, 3300, playerItem, computerItem);
 }
+
+
+
+function removeAllClasses(...rest) {
+     rest.forEach(element => {
+         element.className = "";
+     })
+}
+
+
+function glowItemGold(...rest) {
+    rest.forEach(item => setTimeout(() => {
+        item.style.cssText = 'color: gold'
+    }, 
+    750));
+    
+    rest.forEach(item => setTimeout(() => {
+        item.style.cssText = ''
+    },
+    2000));
+}
+
+
+function glowItemsGrey(...rest) {
+       rest.forEach(item => setTimeout(() => {
+        item.style.cssText = 'color: #754219'
+    }, 
+    750));
+    
+    rest.forEach(item => setTimeout(() => {
+        item.style.cssText = ''
+    },
+    2000));
+}
+
+
+function removePlayerItem(event) {
+    let array = event.target.classList;
+    playerItem.classList.remove(...array);
+}
+
 
 
 
@@ -91,6 +146,12 @@ function generateComputerSelection() {
         case 2: 
             return "SCISSORS";
     }
+}
+
+
+// Returns when player score or comp score reaches 5
+function winningScoreReached() {
+    return playerScore === 5 || compScore === 5;
 }
 
 
@@ -110,6 +171,13 @@ function showComputerItem(choice, displayedItem) {
 }
 
 
+function showPlayerItem(event) {
+    let array = event.target.classList;
+    playerItem.classList.add(...array);
+}
+
+
+
 // Compares user input with output of generateComputerSelection 
 // and returns winner
 function getWinner(playerSelection, computerSelection) {
@@ -120,7 +188,6 @@ function getWinner(playerSelection, computerSelection) {
         playerSelection === "PAPER" && computerSelection === "ROCK" ||
         playerSelection === "SCISSORS" && computerSelection === "PAPER"
         ) {
-        
         return "PLAYER"; 
     } else if (
         playerSelection === "ROCK" && computerSelection === "PAPER" ||
@@ -131,6 +198,7 @@ function getWinner(playerSelection, computerSelection) {
         return "COMPUTER";
         }      
 }
+
 
 // displays winner in round result box after each round
 function displayWinner(winner) {
@@ -166,7 +234,6 @@ function updateScore(roundWinner) {
     displayScores();
 
     receiveGameOver();
-
 }
 
 
@@ -194,13 +261,6 @@ function displayScores() {
 }
 
 
-// Returns when player score or comp score reaches 5
-function winningScoreReached() {
-    return playerScore === 5 || compScore === 5;
-}
-
-
-
 function outputFinalWinner() {    
     if (playerScore > compScore) {
         finalWinnerBox.textContent = "You are the final winner!";
@@ -209,3 +269,6 @@ function outputFinalWinner() {
     }   
     return;
 }
+
+
+
