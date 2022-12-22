@@ -144,14 +144,14 @@ body > * {
     justify-content: center;
     align-items: center;
     color: white;
-    margin-bottom: -20px;
+    margin-bottom: -10px;
     margin-top: -20px;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .f5Div {
     color: #2b83e2;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .press-f5-box {

@@ -1,5 +1,3 @@
- // 17.12.22 - problem: when player icon "wins" comp icon, 
-// it should glow gold
 
 
 let playerScore;
@@ -9,12 +7,23 @@ const rockButton = document.querySelector("#rock");
 const paperButton = document.querySelector("#paper");
 const scissorsButton = document.querySelector("#scissors");
 
+const playerItem = document.querySelector("#player-item");
+const computerItem = document.querySelector("#computer-item");
+
 const playerScoreBox = document.querySelector("#player-score-box");
 const computerScoreBox = document.querySelector("#computer-score-box");
 
 const finalWinnerBoxContainer = document.querySelector("#final-winner-box-container")
 const finalWinnerBox = document.querySelector("#final-winner-box");
 
+
+
+// Turns scores into zero when game is started
+resetScores()
+
+
+// Enables game to start when rock, paper, scissor icons are clicked
+startApplication()
 
 
 
@@ -28,33 +37,56 @@ function resetScores() {
     computerScoreBox.textContent = compScore;
 }
 
+let isButtonDisabled = false; 
 
 // When a user clicks on a rock, paper, scissors button, game is started
 function startApplication() {
     rockButton.addEventListener('click', (e) => {
-        simulateGame(e);
+        if (isButtonDisabled) return; 
         
-        });
-    paperButton.addEventListener('click',  (e) => {
         simulateGame(e);
+       
+        isButtonDisabled = true; 
+        rockButton.setAttribute('disabled', true); 
+        
+        setTimeout(() => { 
+          isButtonDisabled = false; 
+          rockButton.removeAttribute('disabled'); 
+        }, 3000); 
+    });
 
-    });
-    scissorsButton.addEventListener('click',  (e) => {
-        simulateGame(e);
+    paperButton.addEventListener('click', (e) => {
         
-    });
+
+        if (isButtonDisabled) return; 
+ 
+        simulateGame(e);
+       
+        isButtonDisabled = true; 
+        paperButton.setAttribute('disabled', true); 
+       
+        setTimeout(() => { 
+          isButtonDisabled = false; 
+          paperButton.removeAttribute('disabled'); 
+        }, 3000); 
+    })
+
+
+    scissorsButton.addEventListener('click', (e) => {
+        if (isButtonDisabled == true) return; 
+ 
+        simulateGame(e);
+       
+        isButtonDisabled = true; 
+        scissorsButton.setAttribute('disabled', true); 
+
+        setTimeout(() => { 
+          isButtonDisabled = false; 
+          scissorsButton.removeAttribute('disabled'); 
+        }, 3000); 
+   })
 }
 
-
-// Turns scores into zero when game is started
-resetScores()
-
-
-// Enables game to start when rock, paper, scissor icons are clicked
-startApplication()
-
-    const playerItem = document.querySelector("#player-item");
-    const computerItem = document.querySelector("#computer-item");
 
 // takes userclick and stores as ROCK, PAPER or SCISSORS
 // stores output of computerSelection
@@ -75,8 +107,15 @@ function simulateGame(event) {
     
     updateScore(winner);
 
-    displayWinner(winner);
+    setTimeout(displayWinner, 750, winner);
 
+    changeItemColour(winner);
+    
+    setTimeout(removeAllClasses, 3000, playerItem, computerItem);
+}
+
+
+function changeItemColour(winner) {
     switch (winner) {
         case "PLAYER":
             glowItemGold(playerItem);
@@ -88,10 +127,7 @@ function simulateGame(event) {
             glowItemsGrey(playerItem, computerItem);
             break;
     }
-
-    setTimeout(removeAllClasses, 3300, playerItem, computerItem);
 }
-
 
 
 function removeAllClasses(...rest) {
@@ -110,7 +146,7 @@ function glowItemGold(...rest) {
     rest.forEach(item => setTimeout(() => {
         item.style.cssText = ''
     },
-    2000));
+    3000));
 }
 
 
@@ -123,15 +159,8 @@ function glowItemsGrey(...rest) {
     rest.forEach(item => setTimeout(() => {
         item.style.cssText = ''
     },
-    2000));
+    3000));
 }
-
-
-function removePlayerItem(event) {
-    let array = event.target.classList;
-    playerItem.classList.remove(...array);
-}
-
 
 
 
@@ -175,8 +204,7 @@ function showPlayerItem(event) {
     let array = event.target.classList;
     playerItem.classList.add(...array);
 }
-
-
+            
 
 // Compares user input with output of generateComputerSelection 
 // and returns winner
@@ -194,15 +222,14 @@ function getWinner(playerSelection, computerSelection) {
         playerSelection === "PAPER" && computerSelection === "SCISSORS" ||
         playerSelection === "SCISSORS" && computerSelection === "ROCK"
         ) { 
-       
         return "COMPUTER";
         }      
 }
 
+const roundResultBox = document.querySelector("#round-result-box");
 
 // displays winner in round result box after each round
 function displayWinner(winner) {
-    const roundResultBox = document.querySelector("#round-result-box");
     switch (winner){
         case "TIE":
                 roundResultBox.textContent = "The result is a tie";
@@ -214,7 +241,15 @@ function displayWinner(winner) {
                 roundResultBox.textContent = "The computer wins the round!";
                 break;
         }
+
+    setTimeout(removeDisplay, 2550, roundResultBox);
 }
+
+
+function removeDisplay(box) {
+    box.textContent = "";
+}
+
 
 
 // From output of getWinner, updates player and comp scores
@@ -240,17 +275,9 @@ function updateScore(roundWinner) {
 
 function receiveGameOver() {
     if (winningScoreReached()) {
-        setTimeout(outputFinalWinner, 1000)
-        setTimeout(displayPlayAgainMessage, 3000)
+        setTimeout(outputFinalWinner, 2000)
+        setTimeout(() => {setInterval(displayPlayAgainMessage, 1000)}, 2500 ) 
     } 
-}
-
-
-
-
-function displayPlayAgainMessage() {
-    const f5Div = document.querySelector(".f5Div");
-    f5Div.classList.toggle("press-f5-box")
 }
 
 
@@ -267,8 +294,16 @@ function outputFinalWinner() {
     } else {
         finalWinnerBox.textContent = "The computer wins!";
     }   
-    return;
 }
+
+function displayPlayAgainMessage() {
+    const f5Div = document.querySelector(".f5Div");
+    f5Div.classList.toggle("press-f5-box")
+    setTimeout(() => {f5Div.classList.toggle("press-f5-box")}, 500) 
+}
+
+
+
 
 
 
