@@ -37,11 +37,15 @@ function resetScores() {
     computerScoreBox.textContent = compScore;
 }
 
-let isButtonDisabled = false; 
+
 
 // When a user clicks on a rock, paper, scissors button, game is started
+// Spam prevent enabled
+
 function startApplication() {
-    rockButton.addEventListener('click', (e) => {
+    let isButtonDisabled = false; 
+    
+    rockButton.addEventListener('click', (e) => {        
         if (isButtonDisabled) return; 
         
         simulateGame(e);
@@ -51,6 +55,7 @@ function startApplication() {
         
         setTimeout(() => { 
           isButtonDisabled = false; 
+
           rockButton.removeAttribute('disabled'); 
         }, 3000); 
     });
@@ -73,7 +78,7 @@ function startApplication() {
 
 
     scissorsButton.addEventListener('click', (e) => {
-        if (isButtonDisabled == true) return; 
+        // if (isButtonDisabled == true) return; 
  
         simulateGame(e);
        
@@ -111,7 +116,7 @@ function simulateGame(event) {
 
     changeItemColour(winner);
     
-    setTimeout(removeAllClasses, 3000, playerItem, computerItem);
+    setTimeout(removeAllClasses, 2500, playerItem, computerItem);
 }
 
 
@@ -139,27 +144,35 @@ function removeAllClasses(...rest) {
 
 function glowItemGold(...rest) {
     rest.forEach(item => setTimeout(() => {
-        item.style.cssText = 'color: gold'
+        item.style.cssText = "color: #f5f3f4; text-shadow: 0 0 5px #f719e8";
+        item.style.transform = "scale(1.5)";
+        item.style.transition = "transform 0.25s ease";
     }, 
     750));
     
     rest.forEach(item => setTimeout(() => {
-        item.style.cssText = ''
+        item.style.cssText = '';
+        item.style.transform = "scale(1)";
+        item.style.transition = "transform 0.25s ease";
     },
-    3000));
+    1750));
 }
 
 
 function glowItemsGrey(...rest) {
        rest.forEach(item => setTimeout(() => {
-        item.style.cssText = 'color: #754219'
+        item.style.cssText = 'color: #813b71';
+        item.style.transform = "scale(1.25)";
+        item.style.transition = "transform 0.25s ease";
     }, 
     750));
     
     rest.forEach(item => setTimeout(() => {
-        item.style.cssText = ''
+        item.style.cssText = '';
+        item.style.transform = "scale(1)";
+        item.style.transition = "transform 0.25s ease";
     },
-    3000));
+    1750));
 }
 
 
@@ -242,7 +255,7 @@ function displayWinner(winner) {
                 break;
         }
 
-    setTimeout(removeDisplay, 2550, roundResultBox);
+    setTimeout(removeDisplay, 1500, roundResultBox);
 }
 
 
@@ -272,15 +285,6 @@ function updateScore(roundWinner) {
 }
 
 
-
-function receiveGameOver() {
-    if (winningScoreReached()) {
-        setTimeout(outputFinalWinner, 2000)
-        setTimeout(() => {setInterval(displayPlayAgainMessage, 1000)}, 2500 ) 
-    } 
-}
-
-
 // Displays scores in player and comp score boxes
 function displayScores() {
     playerScoreBox.textContent = playerScore;
@@ -296,13 +300,41 @@ function outputFinalWinner() {
     }   
 }
 
-function displayPlayAgainMessage() {
-    const f5Div = document.querySelector(".f5Div");
-    f5Div.classList.toggle("press-f5-box")
-    setTimeout(() => {f5Div.classList.toggle("press-f5-box")}, 500) 
+
+function receiveGameOver() {
+    if (winningScoreReached()) {
+        setTimeout(outputFinalWinner, 2000);
+        // setTimeout(flashElement, 4000)
+        setTimeout(flashElementRepeat, 3000, 2000);
+    }     
+}
+
+function flashElementRepeat(interval) {
+    setInterval(flashElement, interval);
 }
 
 
+function flashElement() {
+    let isVisible = false;
+
+    if (isVisible) return;
+
+    isVisible = true;
+    f5Div.style.visibility = "visible";
+    
+    setTimeout(
+        () => {
+        isInvisible = false;
+        f5Div.style.visibility = "hidden";}, 1000);
+}
+
+const f5Div = document.querySelector(".f5Div");
+
+f5Div.style.visibility = "hidden";
+
+function hideElement(element) {
+    element.style.visibility = "hidden";
+}
 
 
 

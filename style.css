@@ -1,10 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@300;700;900&display=swap");
+
+
+
 body {
     height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin: 0 -10px;
+    margin: auto;
 }
 
 body > * {
@@ -12,41 +16,79 @@ body > * {
 }
 
 .main-title-container {
-    display: flex;
+    /*     display: flex;
     justify-content: center;
     padding: 20px;
-    background-color: #2b83e2;
-}
+    background-color: #2b83e2; */
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    /*     transform: skew(0, -10deg); */
+    /* background: rgb(63, 161, 251); */
+    background: rgb(247 25 232 / 54%);
+    }
 
 
 
 .main-title {
-    /* width: 300px; */
-    /* height: 100px; */
-    color: white;
+/*     color: white;
     font-weight: 700;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 40px;
-    font-family: 'Abel', 'Arial', 'Verdana';
+    font-family: 'Abel', 'Arial', 'Verdana'; */
+    font-family: "Exo 2", sans-serif;
+    order: 2;
+    color: #faf4fb;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: clamp(3rem, 10vw, 6rem);
+    line-height: 0.75em;
+    text-align: center;
+    text-shadow: 6px 6px 0px rgba(0,0,0,0.2)
+}
+
+.glow {
+    font-size: 80px;
+    /* color: #fff; */
+    text-align: center;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+/* #8d1aca, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073; */
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 5px #8d1aca, 0 0 10px #8d1aca00, 0 0 15px #8d1aca;
+  }
+  to {
+    /* text-shadow: 0 0 5px #fff, 0 0 10px #ff4da6, 0 0 15px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6; */
+  }
 }
 
 .item-button-container {
     display: flex;
     justify-content: space-evenly;
-    background-color: blanchedalmond;
     align-items: center;
+    background: rgb(247 25 232 / 19%);
 }
 
 
 
 .item-button-container > i {
-    color: #1051d1;
+    color: #783eed;
+    text-shadow: 3px 3px 0px rgb(212 142 224 / 97%);
+    transform: scale(1);
+    transition: transform .35s ease;
 }
 
 .item-button-container > i:hover {
-    color: gold;
+    transform: scale(1.25);
+    transition: transform .35s ease;
+    color: #4e1688;
 }
 
 .on-click {
@@ -58,15 +100,13 @@ body > * {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #2b83e2;
+    /* background-color: #2b83e2; */
     flex-basis: 4em;
+    background: rgb(247 25 232 / 54%);
 }
 
 #selection-container > i {
-    /* width: 20px; */
-    /* height: 20px; */
-    /* background-color: pink; */
-    /* display: block; */
+    color: #4e1688;
 }
 
 .winner {
@@ -77,12 +117,16 @@ body > * {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: blanchedalmond;
+    /* background-color: blanchedalmond; */
     flex-basis: 110px;
+    background: rgb(247 25 232 / 19%);
 }
 
 .score-box-wrapper {
     margin-bottom: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #player-score-box {
@@ -93,6 +137,7 @@ body > * {
     align-items: center;
     font-family: 'Didact Gothic', 'Arial';
     font-weight: 650;
+    font-size: 2em;
 }
 
 #computer-score-box {
@@ -103,13 +148,14 @@ body > * {
     align-items: center;
     font-family: 'Didact Gothic', 'Arial';
     font-weight: 650;
-    margin-left: 1em;
+    font-size: 2em;
 }
 
 .score-box-heading {
     color: #0e47b6;
     font-weight: 700;
     font-family: 'Abel', 'Arial', 'Verdana';
+    font-size: 1.5em;
 }
 
 #round-result-box {
@@ -126,7 +172,6 @@ body > * {
 }
 
 #final-winner-box-container {
-    background-color: #2b83e2;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -135,6 +180,7 @@ body > * {
     font-family: 'Alegreya Sans SC';
     font-weight: 700;
     flex-basis: 4em;
+    background: #f719e88a;
 }
 
 #final-winner-box {
@@ -150,7 +196,7 @@ body > * {
 }
 
 .f5Div {
-    color: #2b83e2;
+    color: rgb(82 13 78 / 54%);
     font-size: 20px;
 }
 
