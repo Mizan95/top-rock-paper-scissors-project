@@ -1,4 +1,8 @@
+let startDialogueBox = () => {swal("Instructions", "Click the Rock, Paper or Scissors icons to start the game. First to 5 wins!", "success")};
 
+// dialogueBox.style.cssText("background-color: rgba(223, 86, 22, 0.45)");
+
+startDialogueBox();
 
 let playerScore;
 let compScore;
@@ -19,7 +23,7 @@ const finalWinnerBox = document.querySelector("#final-winner-box");
 
 
 // Turns scores into zero when game is started
-resetScores()
+resetGame()
 
 
 // Enables game to start when rock, paper, scissor icons are clicked
@@ -29,7 +33,7 @@ startApplication()
 
 // Resets scores to 0 
 // and displays 0 in player and comp score boxes
-function resetScores() {
+function resetGame() {
     playerScore = 0;
     compScore = 0;
 
@@ -46,10 +50,12 @@ function startApplication() {
     let isButtonDisabled = false; 
     
     rockButton.addEventListener('click', (e) => {        
-        if (isButtonDisabled) return; 
+        // if (isButtonDisabled) return; 
         
+        glowButtonGold(rockButton);
         simulateGame(e);
-       
+        
+
         isButtonDisabled = true; 
         rockButton.setAttribute('disabled', true); 
         
@@ -57,16 +63,16 @@ function startApplication() {
           isButtonDisabled = false; 
 
           rockButton.removeAttribute('disabled'); 
+
         }, 3000); 
     });
 
     paperButton.addEventListener('click', (e) => {
-        
-
         if (isButtonDisabled) return; 
- 
+        
+        glowButtonGold(paperButton);
         simulateGame(e);
-       
+
         isButtonDisabled = true; 
         paperButton.setAttribute('disabled', true); 
        
@@ -78,8 +84,9 @@ function startApplication() {
 
 
     scissorsButton.addEventListener('click', (e) => {
-        // if (isButtonDisabled == true) return; 
- 
+        if (isButtonDisabled == true) return; 
+        
+        glowButtonGold(scissorsButton);
         simulateGame(e);
        
         isButtonDisabled = true; 
@@ -92,6 +99,10 @@ function startApplication() {
    })
 }
 
+function glowButtonGold(button) {
+    button.style.cssText = "color: gold";
+    setTimeout(() => {button.style.cssText = ""}, 1000);
+}
 
 // takes userclick and stores as ROCK, PAPER or SCISSORS
 // stores output of computerSelection
@@ -116,17 +127,17 @@ function simulateGame(event) {
 
     changeItemColour(winner);
     
-    setTimeout(removeAllClasses, 2500, playerItem, computerItem);
+    setTimeout(removeAllClasses, 2000, playerItem, computerItem);
 }
 
 
 function changeItemColour(winner) {
     switch (winner) {
         case "PLAYER":
-            glowItemGold(playerItem);
+            glowItemWhite(playerItem);
             break;
         case "COMPUTER":
-            glowItemGold(computerItem);
+            glowItemWhite(computerItem);
             break;
         default:
             glowItemsGrey(playerItem, computerItem);
@@ -142,7 +153,7 @@ function removeAllClasses(...rest) {
 }
 
 
-function glowItemGold(...rest) {
+function glowItemWhite(...rest) {
     rest.forEach(item => setTimeout(() => {
         item.style.cssText = "color: #f5f3f4; text-shadow: 0 0 5px #f719e8";
         item.style.transform = "scale(1.5)";
@@ -155,7 +166,7 @@ function glowItemGold(...rest) {
         item.style.transform = "scale(1)";
         item.style.transition = "transform 0.25s ease";
     },
-    1750));
+    1500));
 }
 
 
@@ -172,7 +183,7 @@ function glowItemsGrey(...rest) {
         item.style.transform = "scale(1)";
         item.style.transition = "transform 0.25s ease";
     },
-    1750));
+    1500));
 }
 
 
@@ -201,13 +212,13 @@ function winningScoreReached() {
 function showComputerItem(choice, displayedItem) {
     switch (choice) {
     case "ROCK":
-        displayedItem.classList.add("fa-regular", "fa-hand-back-fist", "fa-5x")
+        displayedItem.classList.add("fa-regular", "fa-hand-back-fist", "fa-7x")
         break;
     case "PAPER":
-        displayedItem.classList.add("fa-regular", "fa-hand", "fa-5x")
+        displayedItem.classList.add("fa-regular", "fa-hand", "fa-7x")
         break;
     case "SCISSORS":
-        displayedItem.classList.add("fa-regular", "fa-hand-scissors", "fa-5x")
+        displayedItem.classList.add("fa-regular", "fa-hand-scissors", "fa-7x")
         break;          
     }
 }
@@ -245,13 +256,13 @@ const roundResultBox = document.querySelector("#round-result-box");
 function displayWinner(winner) {
     switch (winner){
         case "TIE":
-                roundResultBox.textContent = "The result is a tie";
+                roundResultBox.textContent = "Result is a tie!";
                 break;
         case "PLAYER":
                 roundResultBox.textContent = "You win the round!";
                 break;
         case "COMPUTER":
-                roundResultBox.textContent = "The computer wins the round!";
+                roundResultBox.textContent = "Computer wins the round!";
                 break;
         }
 
@@ -291,50 +302,36 @@ function displayScores() {
     computerScoreBox.textContent = compScore;
 }
 
-
-function outputFinalWinner() {    
-    if (playerScore > compScore) {
-        finalWinnerBox.textContent = "You are the final winner!";
-    } else {
-        finalWinnerBox.textContent = "The computer wins!";
-    }   
-}
-
-
 function receiveGameOver() {
     if (winningScoreReached()) {
-        setTimeout(outputFinalWinner, 2000);
-        // setTimeout(flashElement, 4000)
-        setTimeout(flashElementRepeat, 3000, 2000);
+        setTimeout(outputFinalWinner, 1500);
     }     
 }
 
-function flashElementRepeat(interval) {
-    setInterval(flashElement, interval);
+function outputFinalWinner() {    
+    if (playerScore > compScore) {
+        swal("You are the final winner!", "* * * * * * * * * * * *"); 
+        makeButtonVisible();
+    } else {
+        swal("The computer wins!", "----------_____----------");
+        makeButtonVisible();
+    }   
 }
 
+const playAgainButton = document.querySelector("#play-again-button");
 
-function flashElement() {
-    let isVisible = false;
-
-    if (isVisible) return;
-
-    isVisible = true;
-    f5Div.style.visibility = "visible";
-    
-    setTimeout(
-        () => {
-        isInvisible = false;
-        f5Div.style.visibility = "hidden";}, 1000);
+function makeButtonVisible() {
+    playAgainButton.style.cssText = "display: visible";
 }
 
-const f5Div = document.querySelector(".f5Div");
+playAgainButton.addEventListener('click', () => {
+    resetGame();
+    playAgainButton.style.cssText = "display: none";
+})
 
-f5Div.style.visibility = "hidden";
 
-function hideElement(element) {
-    element.style.visibility = "hidden";
-}
+
+
 
 
 

@@ -7,6 +7,7 @@
     <title>Document</title>
     
     <link rel="stylesheet" href="style.css">
+    <link rel=”stylesheet” href=”sweetalert.css”>
     
     <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
@@ -19,27 +20,36 @@
     <script src="https://kit.fontawesome.com/fcdf602b50.js" crossorigin="anonymous"></script>
 
     
+
+    
 </head>
 <body>
         <div class="main-title-container">
-            <div class="main-title glow">Rock Paper Scissors</div>
+            <div class="main-title glow"><span>Rock</span><span>Paper</span><span>Scissors</span></div>
+            
         </div>
 
         <div class="item-button-container">
             
-            <i id="rock" class="fa-regular fa-hand-back-fist fa-5x"></i>
+            <i id="rock" class="fa-regular fa-hand-back-fist fa-7x"></i>
             
             
-            <i id="paper" class="fa-regular fa-hand fa-5x"></i>
+            <i id="paper" class="fa-regular fa-hand fa-7x"></i>
             
             
-            <i id="scissors" class="fa-regular fa-hand-scissors fa-5x"></i>
+            <i id="scissors" class="fa-regular fa-hand-scissors fa-7x"></i>
             
         </div>
         <div id="selection-container">
             <i id="player-item">
-                
             </i>
+            <button id="play-again-button" class="button-82-pushable" role="button" style="display: none;">
+                <span class="button-82-shadow"></span>
+                <span class="button-82-edge"></span>
+                <span class="button-82-front text">
+                  Play Again
+                </span>
+            </button>
             <i id="computer-item">
                 
             </i>
@@ -56,13 +66,8 @@
             </div>
         </div>
         <div id="final-winner-box-container">
-            <div id="final-winner-box"></div>
-            <div class="f5Div">Why not press F5 to play again?</div>
         </div>
 
 </body>
-    <!-- <script>
-        
-    </script> -->
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </html>
