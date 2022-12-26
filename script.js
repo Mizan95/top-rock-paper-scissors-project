@@ -1,6 +1,5 @@
 let startDialogueBox = () => {swal("Instructions", "Click the Rock, Paper or Scissors icons to start the game. First to 5 wins!", "success")};
 
-// dialogueBox.style.cssText("background-color: rgba(223, 86, 22, 0.45)");
 
 startDialogueBox();
 
@@ -50,7 +49,7 @@ function startApplication() {
     let isButtonDisabled = false; 
     
     rockButton.addEventListener('click', (e) => {        
-        // if (isButtonDisabled) return; 
+        if (isButtonDisabled) return; 
         
         glowButtonGold(rockButton);
         simulateGame(e);
